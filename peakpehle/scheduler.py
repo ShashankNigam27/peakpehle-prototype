@@ -8,7 +8,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 import numpy as np
-from ortools.sat.python import cp_model
+# cp_model is imported lazily inside optimized() to avoid a DLL conflict
+# (ortools bundles libprotobuf.dll which can clash with the version already
+# loaded by Streamlit/Anaconda, producing [WinError 127] at module-import time).
 
 SLOTS = 96
 EVENING = (64, 80)        # 16:00-20:00
@@ -98,9 +100,13 @@ def rule_based(acts):
     return starts
 
 
-def optimized(residual, acts, time_limit_s: float = 10.0):
+def optimized(residual, acts, time_limit_s: float = 10.0):  # noqa: C901
     """CP-SAT: minimise full-day maximum demand; tie-break by fewest/smallest moves.
     Returns (starts, status_text). Never returns an invalid schedule."""
+    try:
+        from ortools.sat.python import cp_model  # lazy – avoids DLL conflict at startup
+    except OSError as exc:
+        return None, f"ortools unavailable ({exc})"
     m = cp_model.CpModel()
     scale = 10                                        # 0.1 kW integer resolution
     res = np.round(residual * scale).astype(int)
