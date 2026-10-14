@@ -1,0 +1,4 @@
+meter_id,parent_id,label
+MAIN,,Campus incomer (synthetic)
+SUB_ACAD,MAIN,Academic block (synthetic)
+SUB_HOSTEL,MAIN,Hostels (synthetic)

@@ -1,0 +1,45 @@
+{
+  "A_as_observed": [
+    {
+      "note": "no shifts recommended: optimized schedule is not a validated improvement"
+    },
+    {
+      "activity": "WORKSHOP",
+      "note": "not moved: owner approval missing (defaults to non-shiftable)"
+    }
+  ],
+  "B_stress_test": [
+    {
+      "activity": "PUMP_1",
+      "from": "17:00",
+      "to": "12:00",
+      "window": "12:00-20:00",
+      "approval": "PENDING human review"
+    },
+    {
+      "activity": "PUMP_2",
+      "from": "17:30",
+      "to": "18:00",
+      "window": "12:00-20:00",
+      "approval": "PENDING human review"
+    },
+    {
+      "activity": "LAUNDRY",
+      "from": "16:00",
+      "to": "14:00",
+      "window": "12:00-22:00",
+      "approval": "PENDING human review"
+    },
+    {
+      "activity": "EV_CHG",
+      "from": "17:00",
+      "to": "18:00",
+      "window": "12:00-23:00",
+      "approval": "PENDING human review"
+    },
+    {
+      "activity": "WORKSHOP",
+      "note": "not moved: owner approval missing (defaults to non-shiftable)"
+    }
+  ]
+}

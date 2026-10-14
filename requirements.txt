@@ -1,0 +1,11 @@
+pandas
+numpy
+ortools
+tabulate
+matplotlib
+streamlit
+pytest
+nbformat
+nbclient
+ipykernel
+openpyxl

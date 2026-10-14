@@ -1,0 +1,8 @@
+id,description,power_kw,duration_min,earliest,latest_finish,original_start,shiftable,owner_approved,label
+PUMP_1,Hostel pump 1 (municipal supply only after noon),90,120,12:00,20:00,17:00,True,True,SYNTHETIC stress test
+PUMP_2,Hostel pump 2 (municipal supply only after noon),90,90,12:00,20:00,17:30,True,True,SYNTHETIC stress test
+LAUNDRY,Batch laundry cycle,45,120,12:00,22:00,16:00,True,True,SYNTHETIC stress test
+EV_CHG,Campus e-rickshaw charging,60,180,12:00,23:00,17:00,True,True,SYNTHETIC stress test
+WORKSHOP,Non-critical workshop machine run,25,60,10:00,18:00,16:30,True,False,SYNTHETIC - owner not yet approved
+SERVER_COOL,Server-room cooling,25,1440,00:00,24:00,00:00,False,True,SYNTHETIC - protected
+LAB_ESSENTIAL,Essential lab session,40,240,14:00,18:00,14:00,False,True,SYNTHETIC - protected

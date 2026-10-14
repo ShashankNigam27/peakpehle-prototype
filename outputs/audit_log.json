@@ -1,0 +1,181 @@
+[
+  {
+    "step": "validate",
+    "alerts": [
+      {
+        "severity": "block",
+        "meter": "MAIN",
+        "kind": "hierarchy_overlap",
+        "detail": "parent and sub-meters ['SUB_ACAD', 'SUB_HOSTEL'] both present: aggregate only the parent (or only children) to avoid double-counting"
+      }
+    ],
+    "coverage": {
+      "MAIN": 1.0,
+      "SUB_ACAD": 1.0,
+      "SUB_HOSTEL": 1.0
+    }
+  },
+  {
+    "step": "forecast",
+    "weekly_seasonal_naive": {
+      "MAE": 9.6,
+      "RMSE": 12.3,
+      "evening_MAE": 8.2
+    },
+    "daily_naive": {
+      "MAE": 28.8,
+      "RMSE": 59.7,
+      "evening_MAE": 37.0
+    },
+    "decision": "keep 'weekly_seasonal_naive' as baseline; add a complex model only if it beats this"
+  },
+  {
+    "step": "compare_A_as_observed",
+    "results": {
+      "original": {
+        "full_day_max_kw": 493.0,
+        "peak_time": "17:00",
+        "evening_max_kw": 493.0,
+        "evening_avg_kw": 380.2,
+        "outside_evening_max_kw": 340.2,
+        "energy_kwh": 6045.5,
+        "shifted": [],
+        "max_shift_min": 0,
+        "violations": [],
+        "verdict": "baseline"
+      },
+      "rule_based": {
+        "full_day_max_kw": 428.0,
+        "peak_time": "17:00",
+        "evening_max_kw": 428.0,
+        "evening_avg_kw": 331.4,
+        "outside_evening_max_kw": 344.2,
+        "energy_kwh": 6045.5,
+        "shifted": [
+          "PUMP_1",
+          "PUMP_2",
+          "LAUNDRY",
+          "EV_CHG"
+        ],
+        "max_shift_min": 690,
+        "violations": [],
+        "verdict": "passes checks"
+      },
+      "optimized": {
+        "full_day_max_kw": 428.0,
+        "peak_time": "17:00",
+        "evening_max_kw": 428.0,
+        "evening_avg_kw": 377.7,
+        "outside_evening_max_kw": 340.2,
+        "energy_kwh": 6045.5,
+        "shifted": [
+          "PUMP_1",
+          "PUMP_2",
+          "LAUNDRY",
+          "EV_CHG"
+        ],
+        "max_shift_min": 90,
+        "violations": [],
+        "verdict": "passes checks - but does NOT beat both baselines, so not described as success"
+      }
+    },
+    "recommendations": [
+      {
+        "note": "no shifts recommended: optimized schedule is not a validated improvement"
+      },
+      {
+        "activity": "WORKSHOP",
+        "note": "not moved: owner approval missing (defaults to non-shiftable)"
+      }
+    ],
+    "ts": "2026-10-14T17:52:32",
+    "data_label": "SYNTHETIC"
+  },
+  {
+    "step": "compare_B_stress_test",
+    "results": {
+      "original": {
+        "full_day_max_kw": 672.0,
+        "peak_time": "17:30",
+        "evening_max_kw": 672.0,
+        "evening_avg_kw": 477.7,
+        "outside_evening_max_kw": 340.2,
+        "energy_kwh": 6435.5,
+        "shifted": [],
+        "max_shift_min": 0,
+        "violations": [],
+        "verdict": "baseline"
+      },
+      "rule_based": {
+        "full_day_max_kw": 613.8,
+        "peak_time": "13:00",
+        "evening_max_kw": 428.0,
+        "evening_avg_kw": 331.4,
+        "outside_evening_max_kw": 613.8,
+        "energy_kwh": 6435.5,
+        "shifted": [
+          "PUMP_1",
+          "PUMP_2",
+          "LAUNDRY",
+          "EV_CHG"
+        ],
+        "max_shift_min": 330,
+        "violations": [],
+        "verdict": "FAILED: rebound: new peak 613.8 kW outside 4-8 PM at 13:00 (was 340.2 kW there)"
+      },
+      "optimized": {
+        "full_day_max_kw": 428.0,
+        "peak_time": "17:00",
+        "evening_max_kw": 428.0,
+        "evening_avg_kw": 395.2,
+        "outside_evening_max_kw": 418.8,
+        "energy_kwh": 6435.5,
+        "shifted": [
+          "PUMP_1",
+          "PUMP_2",
+          "LAUNDRY",
+          "EV_CHG"
+        ],
+        "max_shift_min": 300,
+        "violations": [],
+        "verdict": "passes checks"
+      }
+    },
+    "recommendations": [
+      {
+        "activity": "PUMP_1",
+        "from": "17:00",
+        "to": "12:00",
+        "window": "12:00-20:00",
+        "approval": "PENDING human review"
+      },
+      {
+        "activity": "PUMP_2",
+        "from": "17:30",
+        "to": "18:00",
+        "window": "12:00-20:00",
+        "approval": "PENDING human review"
+      },
+      {
+        "activity": "LAUNDRY",
+        "from": "16:00",
+        "to": "14:00",
+        "window": "12:00-22:00",
+        "approval": "PENDING human review"
+      },
+      {
+        "activity": "EV_CHG",
+        "from": "17:00",
+        "to": "18:00",
+        "window": "12:00-23:00",
+        "approval": "PENDING human review"
+      },
+      {
+        "activity": "WORKSHOP",
+        "note": "not moved: owner approval missing (defaults to non-shiftable)"
+      }
+    ],
+    "ts": "2026-10-14T17:52:32",
+    "data_label": "SYNTHETIC"
+  }
+]
